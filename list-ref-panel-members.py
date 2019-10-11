@@ -88,9 +88,10 @@ def chop_into_panels(all_info_in_pdf):
             role = x
         if x[:2] in title_strings:
             name = x
-            parsed_ref_panel[name] = {'main panel': main_panel, 'sub-panel': sub_panel, 'role': role}
-
-    #print(parsed_ref_panel)
+            if '*' in name:
+                parsed_ref_panel[name] = {'main panel': main_panel, 'sub-panel': sub_panel, 'role': role, 'interdisciplinary': True}
+            else:
+                parsed_ref_panel[name] = {'main panel': main_panel, 'sub-panel': sub_panel, 'role': role, 'interdisciplinary': ''}
 
     return parsed_ref_panel
 
@@ -109,7 +110,7 @@ def create_df(parsed_ref_panel):
     df['name'] = df['name and institution'].str.split(' ').str[:3].str.join(sep=' ')
     df['institution'] = df['name and institution'].str.split(' ').str[3:].str.join(sep=' ')
     # Re-order purely to produce a prettier csv
-    df = df[['name', 'institution', 'main panel', 'sub-panel','role', 'name and institution']]
+    df = df[['name', 'institution', 'main panel', 'sub-panel','role', 'interdisciplinary', 'name and institution']]
 
 
     export_to_csv(df,'REF_panelists', False)

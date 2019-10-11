@@ -89,6 +89,7 @@ def chop_into_panels(all_info_in_pdf):
         if x[:2] in title_strings:
             name = x
             if '*' in name:
+                name = name.replace('*', '')
                 parsed_ref_panel[name] = {'main panel': main_panel, 'sub-panel': sub_panel, 'role': role, 'interdisciplinary': True}
             else:
                 parsed_ref_panel[name] = {'main panel': main_panel, 'sub-panel': sub_panel, 'role': role, 'interdisciplinary': ''}

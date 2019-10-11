@@ -6,7 +6,7 @@ import os
 import time
 import pandas as pd
 
-DATAFILENAME = "./All_REF_panel_members.csv"
+DATAFILENAME = "./all-panel-members-list-v6-111019.csv"
 DATASTORE = './'
 
 def read_csv_as_list(filename):
@@ -81,7 +81,7 @@ def chop_into_panels(all_info_in_pdf):
         #print(x)
         if 'Main Panel' in x:
             main_panel = x
-            panel = x
+            sub_panel = 'Main panel'
         if 'Sub-panel' in x:
             sub_panel = x
         if x in role_strings:

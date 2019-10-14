@@ -114,6 +114,31 @@ def create_df(parsed_ref_panel):
     df = df[['name', 'institution', 'main panel', 'sub-panel','role', 'interdisciplinary', 'name and institution']]
 
 
+    # Some people don't stick to the conventional first name, last name thing, and there's no easy way of dealing with
+    # that, so I'm just going to replace the handful of people that it affects (it affects their organisation name
+    # too because part of their name gets shunted into the organisation name
+
+    # Set up two dicts to deal with the swaps, then use two replace commands further below to carry them out
+    name_replace = {'Professor Dame Anna': 'Professor Dame Anna Dominiczak',
+                    'Professor Sir Nilesh': 'Professor Sir Nilesh Samani',
+                    'Professor Jill Macleod': 'Professor Jill Macleod Clarke',
+                    'Professor Zahia Smail': 'Professor Zahia Smail Salhi',
+                    'Ms Margaret Mary': 'Ms Margaret Mary Murray',
+                    'Professor Sophie Grace': 'Professor Sophie Grace Chappell'
+                    }
+
+    institution_replace = {'Dominiczak University of Glasgow': 'University of Glasgow',
+                            'Samani British Heart Foundation': 'British Heart Foundation',
+                            'Clarke University of Southampton': 'University of Southampton',
+                            'Salhi University of Manchester': 'University of Manchester',
+                            'Murray BBC Scotland/BBC Alba': 'BBC Scotland/BBC Alba',
+                            'Chappell The Open University': 'The Open University',
+                            }
+
+    df['name'] = df['name'].replace(name_replace)
+    df['institution'] = df['institution'].replace(institution_replace)
+
+    # And save it all out
     export_to_csv(df,'REF_panelists', False)
     return
 
